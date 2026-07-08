@@ -19,8 +19,6 @@ app.get("/", async (req, res) => {
   res.json({ message: "Welcome to the Dentist Website API" });
 });
 
-
-
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

@@ -7,3 +7,5 @@ router.get("/login-ClDash", async (req, res) => {
   const result = await pool.query("SELECT * FROM ClDB");
   res.json(result.rows);
 });
+
+export default router;
