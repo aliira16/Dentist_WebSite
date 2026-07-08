@@ -9,25 +9,34 @@ router.get("/login-DrDash", async (req, res) => {
 });
 
 router.post("/login-DrDash", async (req, res) => {
-  const { name, phone_number, service, next_appointment, price } = req.body;
-  if (!name || !phone_number || !service || !next_appointment || !price) {
+  const { name, phone_number, service, next_appointment, price, patient_code } =
+    req.body;
+  if (
+    !name ||
+    !phone_number ||
+    !service ||
+    !next_appointment ||
+    !price ||
+    !patient_code
+  ) {
     return res.status(400).json({ error: "need to fill all fields" });
   }
 
   const result = await pool.query(
-    "INSERT INTO DrDB (name, phone_number, service, next_appointment, price) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-    [name, phone_number, service, next_appointment, price],
+    "INSERT INTO DrDB (name, phone_number, service, next_appointment, price, patient_code) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+    [name, phone_number, service, next_appointment, price, patient_code],
   );
   res.status(201).json(result.rows[0]);
 });
 
 router.put("/login-DrDash/:id", async (req, res) => {
   const { id } = req.params;
-  const { name, phone_number, service, next_appointment, price } = req.body;
+  const { name, phone_number, service, next_appointment, price, patient_code } =
+    req.body;
 
   const result = await pool.query(
-    "UPDATE DrDB SET name = $1, phone_number = $2, service = $3, next_appointment = $4, price = $5 WHERE id = $6 RETURNING *",
-    [name, phone_number, service, next_appointment, price, id],
+    "UPDATE DrDB SET name = $1, phone_number = $2, service = $3, next_appointment = $4, price = $5, patient_code = $6 WHERE id = $7 RETURNING *",
+    [name, phone_number, service, next_appointment, price, patient_code, id],
   );
   res.json(result.rows[0]);
 });
@@ -40,3 +49,5 @@ router.delete("/login-DrDash/:id", async (req, res) => {
   );
   res.json(result.rows[0]);
 });
+
+export default router;
