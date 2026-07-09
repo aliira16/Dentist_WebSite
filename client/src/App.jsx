@@ -5,7 +5,7 @@ import PatientLogin from "./pages/PatientLogin.jsx";
 import DoctorLogin from "./pages/DoctoreLogin.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import AuthSuccess from "./pages/AuthSuccess.jsx";
-import PrivateRoute from "./components/privetRoutes.jsx";
+import PrivateRoute from "./components/privatRoutes.jsx";
 import DoctorDashboard from "./pages/DoctorDashboard.jsx";
 import PatientDashboard from "./pages/PatientDashboard.jsx";
 import Unauthorized from "./pages/Unauthorized.jsx";
@@ -23,7 +23,7 @@ const App = () => {
       <Route
         path="/doctor/dashboard"
         element={
-          <PrivateRoute requiredRole="doctor">
+          <PrivateRoute requiredRole="doctor" loginPath="/doctor/login">
             <DoctorDashboard />
           </PrivateRoute>
         }
@@ -33,7 +33,7 @@ const App = () => {
       <Route
         path="/patient/dashboard"
         element={
-          <PrivateRoute requiredRole="patient">
+          <PrivateRoute requiredRole="patient" loginPath="/patient/login">
             <PatientDashboard />
           </PrivateRoute>
         }
