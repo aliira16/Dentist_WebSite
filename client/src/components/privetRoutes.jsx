@@ -11,7 +11,7 @@ const PrivateRoute = ({ children, requiredRole }) => {
     const decoded = jwtDecode(token);
 
     // Check if token is expired
-    const isExpired = decoded.exp * 1000 < Date.now();
+    const isExpired = !decoded.exp || decoded.exp * 1000 < Date.now();
     if (isExpired) {
       localStorage.removeItem("token");
       return <Navigate to="/login" />;
